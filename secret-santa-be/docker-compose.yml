@@ -1,0 +1,6 @@
+
+services:
+  secret-santa-backend:
+    image: panezio/secret-santa-0.0.1
+    ports:
+      - 8082:8082
