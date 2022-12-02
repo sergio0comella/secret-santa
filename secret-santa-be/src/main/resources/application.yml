@@ -1,0 +1,52 @@
+server:
+  port: 8082
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  sql:
+    init:
+      mode: always
+      platform: postgres
+  datasource:
+    url: jdbc:postgresql://localhost:5454/pg_db
+    username: postgres
+    password: dbpass
+
+logging:
+  file:
+    name: './logs/secret-santa.log' #file inserito nella cartella logs
+    #path: "/logs"
+  pattern:
+    file: "%d{ dd-MM-yyyy } [%thread] %-5level %logger{36} - %msg%n"
+    #console: "%d{dd-MM-yyyy HH:mm:ss} - %msg%n"
+
+  # Livello del Log generale (default INFO)
+  level:
+    root: INFO
+    # Livello di log specifico
+    org.springframework.security: DEBUG
+    org.hibernate: INFO
+    org.springframework.web: INFO
+    com.xantrix.webapp.controller: INFO
+
+  logback:
+    rollingpolicy:
+      max-file-size: 1MB
+
+
+# ==============================================================
+# = Parametri Sicurezza OAUTH2 con KeyCloack
+# ==============================================================
+keycloak:
+  auth-server-url: http://localhost:8080/
+  realm: dev
+  resource: SecretSanta
+  public-client: true
